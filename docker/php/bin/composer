@@ -1,0 +1,9 @@
+#!/bin/bash
+
+[[ "${DEBUG}" =~ ^(true|on|1)$ ]] && set -x
+
+COMPOSER=$(which composer.phar)
+
+chmod +x $COMPOSER
+
+su -c "COMPOSER_HOME=${COMPOSER_HOME} $COMPOSER $*" -s /bin/bash www-data

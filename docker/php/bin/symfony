@@ -1,0 +1,8 @@
+#!/bin/bash
+
+[[ "${DEBUG}" =~ ^(true|on|1)$ ]] && set -x
+
+COMMAND="/var/www/symfony/bin/console"
+
+chmod a+x $COMMAND
+su -c "$COMMAND $*" -s /bin/bash www-data

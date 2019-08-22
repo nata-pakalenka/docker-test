@@ -1,0 +1,40 @@
+version: '3.7'
+services:
+  php:
+    build: docker/php
+    volumes:
+      - './symfony:/var/www/symfony'
+    user: 1000:1000
+    links:
+      - mysql
+    depends_on:
+      - rabbitmq-server
+
+  nginx:
+    build: docker/nginx
+    links:
+      - php
+    volumes:
+      - './symfony:/var/www/symfony'
+      - './logs/nginx:/var/log/nginx'
+    ports:
+      - 81:80
+    restart: on-failure
+
+  mysql:
+    image: mysql:5.7
+    ports:
+      - 3307:3306
+    volumes:
+      - './docker/mysql:/var/lib/mysql'
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+
+  rabbitmq-server:
+    image: rabbitmq:3-management
+    ports:
+      - "15672:15672"
+      - "5672:5672"
