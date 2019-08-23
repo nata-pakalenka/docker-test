@@ -28,4 +28,8 @@ RUN mkdir -p $COMPOSER_HOME && chmod 777 -R $COMPOSER_HOME
 
 RUN usermod -u 1000 www-data && groupmod -g 1000 www-data
 
+RUN curl -L https://cs.sensiolabs.org/download/php-cs-fixer-v2.phar -o php-cs-fixer \
+    && chmod +x php-cs-fixer \
+    && mv php-cs-fixer /usr/local/bin/php-cs-fixer
+
 #CMD ["php-fpm", "--allow-to-run-as-root"]

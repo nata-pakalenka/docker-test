@@ -27,6 +27,7 @@ services:
       - 3307:3306
     volumes:
       - './docker/mysql:/var/lib/mysql'
+    restart: always
     environment:
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
       MYSQL_DATABASE: ${MYSQL_DATABASE}
@@ -38,3 +39,8 @@ services:
     ports:
       - "15672:15672"
       - "5672:5672"
+
+  redis:
+    image: redis:4
+    ports:
+      - 6379:6379
