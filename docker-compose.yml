@@ -25,6 +25,8 @@ services:
     ports:
       - 81:80
     restart: on-failure
+    networks:
+      - app
 
   mysql:
     image: mysql:5.7
@@ -38,6 +40,8 @@ services:
       MYSQL_DATABASE: ${MYSQL_DATABASE}
       MYSQL_USER: ${MYSQL_USER}
       MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+    networks:
+      - app
 
   rabbitmq-server:
     image: rabbitmq:3-management
